@@ -1,0 +1,18 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User L8</title>
+    <link href="{% static 'user/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <h1>Welcome to L8 with intro to python & Js
+    {%block content%}
+    {% endblock %}
+
+    <script src="{% static 'user/index.js' %}"></script>
+</body>
+</html>
