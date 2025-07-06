@@ -7,13 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User L8</title>
     <link href="{% static 'user/style.css' %}" rel="stylesheet">
+    <style>
+        div{
+            display: none;
+            
+        }
+    </style>
+    <script>
+        function showS(section){
+            fetch(`/section/${section}`)
+            .then(Response=> Response.text())
+            .then(text=>{
+                document.querySelector('#content').innerHTML = text
+            })
+        }
+        function show(page){
+            document.querySelectorAll('div').forEach(div=>{
+                div.style.display = 'none'
+            })
+            document.querySelector(`#${page}`).style.display ="block";
+        }
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelectorAll('button').forEach(button=>{
+                button.onclick = function(){
+                    show(this.dataset.section)
+                }
+            })
+        })
+    </script>
 </head>
 <body>
-    <h1>Welcome to L8 with intro to </h1>
-    <p>coding is great, but understanding what is going behing is very important and great for day to day life issues</p>
-    <p>so talking about programming is something very big and arranged in all directions in the world today</p>
-
-
+    <h1>Hi there!</h1>
+    <button data-section="1">page 1</button>
+     <button data-section="2">page 2</button>
+      <button data-section="3">page 3</button>
+      <div id="content"></div>
+    <!--<div id="page1"><h1>This is page1</h1></div>
+    <div id="page2"><h1>This is page2</h1></div>
+    <div id="page3"><h1>This is page3</h1></div>-->
 
 
     {%block content%}
