@@ -5,6 +5,23 @@
          <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
         <script src="https:/unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+        <style>
+            #app{
+                text-align: center;
+                font-family:sans-serif;
+            }
+            #problem{
+                font-size: 74px;
+            }
+            .incorrect{
+                color: red;
+            }
+            #winner{
+                color: green;
+                font-size: 40px;
+            }
+        </style>
     </head>
     <body>
         <div id="app">
@@ -20,7 +37,8 @@
                     num1:1,
                     num2:2,
                     response:"",
-                    score: 0
+                    score: 0,
+                    incorrect:false
                 })
 
                 function keypree(event){
@@ -31,14 +49,20 @@
                             ...state,
                             num1:Math.ceil(Math.random()*10),
                             num2:Math.ceil(Math.random()*10),
+                            
 
-                            score : state.score + 1
+                            score : state.score + 1,
+
+                            response:"",
+                            incorrect:false
                         })
                        }
                        else{
                         setState({
                             ...state,
-                            score: state.score - 1
+                            score: state.score - 1,
+                            response:"",
+                            incorrect:true
                         })
                        }
                     }
@@ -49,10 +73,18 @@
                         response:event.target.value
                     })
                 }
+                if(state.score === 10){
+                    return (
+                        <div id="winner">
+                            You won
+                        </div>
+                    )
+                }
+
                 return (
                     <div>
-                       <div>{state.num1} + {state.num2}</div>
-                       <input onKeyPress ={keypree}onChange={update} value={state.response}/>
+                       <div className ={state.incorrect?"incorrect":""}id="problem">{state.num1} + {state.num2}</div>
+                       <input autoFucus={true} onKeyPress ={keypree}onChange={update} value={state.response}/>
                        <div>Score : {state.score}</div>
                     </div>
                 )
