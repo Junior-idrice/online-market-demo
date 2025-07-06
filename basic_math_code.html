@@ -18,12 +18,42 @@
             //    const [num2, setNum2]=React.useState(0);
               const [state, setState] = React.useState({
                     num1:1,
-                    num2:2
+                    num2:2,
+                    response:"",
+                    score: 0
                 })
+
+                function keypree(event){
+                    if(event.key === "Enter"){
+                        const answer = parseInt(state.response)
+                       if( state.num1 + state.num2 === answer){
+                        setState({
+                            ...state,
+                            num1:Math.ceil(Math.random()*10),
+                            num2:Math.ceil(Math.random()*10),
+
+                            score : state.score + 1
+                        })
+                       }
+                       else{
+                        setState({
+                            ...state,
+                            score: state.score - 1
+                        })
+                       }
+                    }
+                }
+                function update(event){
+                    setState({
+                        ...state,
+                        response:event.target.value
+                    })
+                }
                 return (
                     <div>
                        <div>{state.num1} + {state.num2}</div>
-                       <input/>
+                       <input onKeyPress ={keypree}onChange={update} value={state.response}/>
+                       <div>Score : {state.score}</div>
                     </div>
                 )
             }
